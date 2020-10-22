@@ -154,7 +154,6 @@ public class CallService
         if(this.myVersion!=logVersion)
         {
             loadList(context);
-            myVersion=logVersion;
         }
         return callLogList;
     }
