@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/call_popup_menu"
+        android:title="call"
+        android:icon="@drawable/call"
+        app:showAsAction="always">
+
+    </item>
+    <item
+        android:id="@+id/send_message_popup_menu"
+        android:title="send message"
+        android:icon="@drawable/send_message"
+        app:showAsAction="withText">
+
+    </item>
+    <item
+        android:id="@+id/transfer_popup_menu"
+        android:title="transfer balance"
+        android:icon="@drawable/call"
+    app:showAsAction="withText">
+
+    </item>
+    <item
+        android:id="@+id/call_me_back_popup_menu"
+        android:title="send call me back"
+        android:icon="@drawable/incoming_call"
+        app:showAsAction="withText">
+
+    </item>
+
+</menu>
