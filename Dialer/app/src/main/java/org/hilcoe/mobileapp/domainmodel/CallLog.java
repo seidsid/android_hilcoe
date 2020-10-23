@@ -46,27 +46,27 @@ public class CallLog implements Callable
             {
                 if(now.getDate()==this.dateTime.getDate())
                 {
-                    format.applyPattern("hh:mm");
+                    format.applyPattern("hh:mm a");
                     return "Today "+format.format(this.dateTime);
                 }
                 else if((now.getDate()-this.dateTime.getDate())==1)
                 {
-                    format.applyPattern("hh:mm");
+                    format.applyPattern("hh:mm a");
                     return "Yesterday "+format.format(this.dateTime);
                 }
                 else
                 {
-                    format.applyPattern("dd/hh:mm");
+                    format.applyPattern("dd hh:mm a");
                 }
             }
             else
             {
-                format.applyPattern("MM/dd hh:mm");
+                format.applyPattern("MM/dd hh:mm a");
             }
         }
         else
         {
-            format=new SimpleDateFormat("YY/MM/dd hh:mm");
+            format=new SimpleDateFormat("YY/MM/dd hh:mm a");
         }
         return format.format(this.dateTime);
     }

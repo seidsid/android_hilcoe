@@ -37,16 +37,26 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        requestPermission();
         callService=CallService.getInstance();
+        setToolbar();
+    }
+    private void init()
+    {
         ViewPager vp=findViewById(R.id.view_pager);
         vp.setAdapter(new PagerAdapter(getSupportFragmentManager()));
         ((TabLayout)findViewById(R.id.tab_layout)).setupWithViewPager(vp);
-        setToolbar();
-        requestPermission();
     }
     private void setToolbar()
     {
         setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        init();
     }
 
     @Override
@@ -68,21 +78,16 @@ public class MainActivity extends AppCompatActivity
 
     private void requestPermission()
     {
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG)!= PackageManager.PERMISSION_GRANTED)
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG)!= PackageManager.PERMISSION_GRANTED||
+                ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE)!=PackageManager.PERMISSION_GRANTED||
+                ContextCompat.checkSelfPermission(this,Manifest.permission.READ_CONTACTS)!=PackageManager.PERMISSION_GRANTED||
+                ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_CONTACTS)!=PackageManager.PERMISSION_GRANTED)
         {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_CALL_LOG},101);
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_CALL_LOG,Manifest.permission.CALL_PHONE,Manifest.permission.READ_CONTACTS,Manifest.permission.WRITE_CONTACTS},101);
         }
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE)!=PackageManager.PERMISSION_GRANTED)
+        else
         {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CALL_PHONE},102);
-        }
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_CONTACTS)!=PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_CONTACTS},103);
-        }
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_CONTACTS)!=PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_CONTACTS},104);
+            init();
         }
     }
     private class PagerAdapter extends FragmentPagerAdapter
